@@ -86,10 +86,14 @@ class Lista:
         pass
 
 
-lista2 = Lista()
-lista2.adicionaritens(15)
-lista2.adicionaritens(15)
-lista2.adicionaritens(15)
-lista2.adicionaritens(15)
-lista2.inseriritem(1000, 500)
-print(lista2)
+lista = Lista()
+lista.adicionaritens(1)
+lista.adicionaritens(2)
+lista.adicionaritens(3)
+lista.inseriritem(3, 4)
+lista.inseriritem(4, 5)
+lista.remover_index(4)
+lista.editar_item(3, 5)
+print(lista.get_index(3))
+print(f'O TAMANHO DA LISTA É: {len(lista)}')
+print(f'LISTA DE VALORES: {lista}')

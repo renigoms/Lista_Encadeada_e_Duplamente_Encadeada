@@ -82,13 +82,13 @@ class Lista:
             perc = perc.proximo
         return perc.valor
 
-    # def get_index(self, index):
-    #     if self.tamanho == 0:
-    #         raise IndexError('NÃO EXISTE ELEMENTOS NA LISTA')
-    #     perc = self.inicio
-    #     for i in range(index):
-    #         perc = perc.proximo
-    #     return perc.valor
+    def get_index(self, index):
+        if self.tamanho == 0:
+            raise IndexError('NÃO EXISTE ELEMENTOS NA LISTA')
+        perc = self.inicio
+        for i in range(index):
+            perc = perc.proximo
+        return perc.valor
 
     def editar_item(self, index, novo_valor):
         if self.tamanho == 0:
@@ -102,10 +102,24 @@ class Lista:
         pass
 
 
-lista2 = Lista()
-lista2.adicionaritens(15 + 1)
-lista2.adicionaritens(15 + 1)
-lista2.adicionaritens(15 + 1)
-lista2.adicionaritens(15 + 1)
-lista2.editar_item(100,500)
-print(lista2)
+lista = Lista()
+lista.adicionaritens(1)
+lista.adicionaritens(2)
+lista.adicionaritens(3)
+
+lista.inseriritem(3, 4)
+lista.inseriritem(4, 5)
+lista.editar_item(4, 6)
+lista.adicionaritens(54)
+lista.adicionaritens(55)
+lista.remover_index(4)
+lista.remover_index(3)
+lista.adicionaritens(6)
+lista.adicionaritens(6)
+print(lista.get_valor(3))
+print(lista.get_index(4))
+
+
+print(len(lista))
+
+print(lista)
