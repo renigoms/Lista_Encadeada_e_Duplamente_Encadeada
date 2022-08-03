@@ -61,16 +61,34 @@ class Lista:
         self.tamanho += 1
 
     def remover_index(self, index):
-        if index > self.tamanho:
+
+        if index >= self.tamanho or self.tamanho + index < 0:
             raise Exception('Não há um item na lista com esse index')
-        perc = self.inicio
-        for i in range(index - 1):
-            perc = perc.proximo
-        perc.proximo = perc.proximo.proximo
-        self.tamanho -= 1
+        if index < 0:
+            index += self.tamanho
+        if index == 0:
+            self.inicio = self.inicio.proximo
+        else:
+            perc = self.inicio
+            for i in range(index - 1):
+                perc = perc.proximo
+            perc.proximo = perc.proximo.proximo
+            self.tamanho -= 1
 
     def remover_item(self, valor):
-        pass
+        if self.tamanho == 0:
+            raise ValueError('LISTA ZERADA')
+        perc = self.inicio
+        if perc.valor == valor:
+            self.inicio = self.inicio.proximo
+            self.tamanho -= 1
+            return
+        while perc.proximo:
+            if perc.proximo.valor == valor:
+                perc.proximo = perc.proximo.proximo
+                self.tamanho -= 1
+                return
+            perc = perc.proximo
 
     def get_valor(self, index):
         if self.tamanho == 0:
@@ -82,7 +100,7 @@ class Lista:
             perc = perc.proximo
         return perc.valor
 
-    def get_index(self, index):
+    def get_valorv2(self, index):
         if self.tamanho == 0:
             raise IndexError('NÃO EXISTE ELEMENTOS NA LISTA')
         perc = self.inicio
@@ -99,27 +117,30 @@ class Lista:
         perc.valor = novo_valor
 
     def buscar_valores_repetidos(self):
-        pass
+        if self.tamanho == 0:
+            raise Exception('Lista Vazia!!!')
+        cont = 0
+        perc = self.inicio
+        listar_repetidos = Lista()
+        lista_valores = Lista()
+        while perc:
+            if not listar_repetidos:
+                listar_repetidos.adicionaritens(perc.valor)
+            else:
+                if perc.valor in lista_valores:
+                    listar_repetidos.adicionaritens(perc.valor)
+                    cont += 1
+            perc = perc.proximo
+        return print(lista_valores, cont)
 
 
 lista = Lista()
-lista.adicionaritens(1)
+lista.adicionaritens(5)
+lista.adicionaritens(7)
 lista.adicionaritens(2)
-lista.adicionaritens(3)
-
-lista.inseriritem(3, 4)
-lista.inseriritem(4, 5)
-lista.editar_item(4, 6)
-lista.adicionaritens(54)
-lista.adicionaritens(55)
-lista.remover_index(4)
-lista.remover_index(3)
-lista.adicionaritens(6)
-lista.adicionaritens(6)
-print(lista.get_valor(3))
-print(lista.get_index(4))
-
-
-print(len(lista))
-
+lista.adicionaritens(2)
+print(lista)
+lista.remover_item(5)
+print(lista)
+lista.remover_index(0)
 print(lista)
