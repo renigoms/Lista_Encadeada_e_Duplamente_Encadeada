@@ -122,32 +122,30 @@ class Lista:
         perc = self.inicio
         aux = self.inicio
         cont = 0
-        tamanho = self.tamanho
-        while perc:
-            while aux:
-                if perc.valor == aux.valor:
+        cont2 = 0
+        valunico = Lista()
+
+        while aux:
+            while perc:
+                if aux.valor == perc.valor:
                     cont += 1
-                    print(perc.valor)
-                elif aux.proximo is None:
-                    perc = perc.proximo
-                aux = aux.proximo
-            perc = perc.proximo
-
-
-
-
+                    if cont > 1:
+                        cont2 += 1
+                        print(aux.valor,'repetio',cont2, 'x')
+                perc = perc.proximo
+            aux = aux.proximo
 
 
 lista = Lista()
 
-lista.adicionaritens(8)
-lista.adicionaritens(7)
-lista.adicionaritens(6)
-lista.adicionaritens(4)
-lista.adicionaritens(4)
+lista.adicionaritens(3)
+lista.adicionaritens(3)
+lista.adicionaritens(2)
+lista.adicionaritens(3)
+lista.adicionaritens(2)
+lista.adicionaritens(3)
 lista.adicionaritens(2)
 lista.adicionaritens(8)
-lista.adicionaritens(2)
 print(lista)
 
 lista.buscar_valores_repetidos()
