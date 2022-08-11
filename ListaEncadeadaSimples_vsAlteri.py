@@ -119,28 +119,35 @@ class Lista:
     def buscar_valores_repetidos(self):
         if self.tamanho == 0:
             raise Exception('Lista Vazia!!!')
-        cont = 0
         perc = self.inicio
-        listar_repetidos = Lista()
-        lista_valores = Lista()
+        aux = self.inicio
+        cont = 0
+        tamanho = self.tamanho
         while perc:
-            if not listar_repetidos:
-                listar_repetidos.adicionaritens(perc.valor)
-            else:
-                if perc.valor in lista_valores:
-                    listar_repetidos.adicionaritens(perc.valor)
+            while aux:
+                if perc.valor == aux.valor:
                     cont += 1
+                    print(perc.valor)
+                elif aux.proximo is None:
+                    perc = perc.proximo
+                aux = aux.proximo
             perc = perc.proximo
-        return print(lista_valores, cont)
+
+
+
+
 
 
 lista = Lista()
-lista.adicionaritens(5)
+
+lista.adicionaritens(8)
 lista.adicionaritens(7)
+lista.adicionaritens(6)
+lista.adicionaritens(4)
+lista.adicionaritens(4)
 lista.adicionaritens(2)
+lista.adicionaritens(8)
 lista.adicionaritens(2)
 print(lista)
-lista.remover_item(5)
-print(lista)
-lista.remover_index(0)
-print(lista)
+
+lista.buscar_valores_repetidos()
