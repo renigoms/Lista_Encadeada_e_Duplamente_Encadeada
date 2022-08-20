@@ -117,7 +117,7 @@ class Lista:
         perc.valor = novo_valor
 
     def buscar_valores_repetidos(self):
-        #DETECTAR O SE A LISTA ESTA VAZIA
+        # DETECTAR O SE A LISTA ESTA VAZIA
         if self.tamanho == 0:
             raise Exception('Lista Vazia!!!')
         listastr = str(self.inicio)
@@ -132,26 +132,33 @@ class Lista:
                 string1 += listastr
             elif listastr in string1:
                 string2 += listastr
-                cont+=1
+                cont += 1
             perc = perc.proximo
 
         # EXIBIR VALORES
         repit = ''
         for i in string2:
             repit += f'>{i}'
-        print(f'{cont} Valores se repetem são eles: {repit}')
+        return f'{cont} Valores se repetem são eles: {repit}'
 
+    def ordenar(self, crecente=True):
+        # RECOMENDAÇÕES DO PROFESSOR:
+        # BublleSort ou SelectionSort
+
+        # Método Usado: BublleSort
+        pass
 
 
 lista = Lista()
-lista.adicionaritens(1)
-lista.adicionaritens(3)
-lista.adicionaritens(3)
 lista.adicionaritens(5)
+lista.adicionaritens(4)
+lista.adicionaritens(8)
+lista.adicionaritens(7)
 lista.adicionaritens(5)
-lista.adicionaritens(6)
-lista.adicionaritens(6)
+lista.adicionaritens(2)
+lista.adicionaritens(9)
 lista.adicionaritens(8)
 print(lista)
 
-lista.buscar_valores_repetidos()
+ValsRepetidos = lista.buscar_valores_repetidos()
+print(ValsRepetidos)
