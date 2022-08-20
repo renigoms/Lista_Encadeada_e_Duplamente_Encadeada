@@ -117,34 +117,40 @@ class Lista:
         perc.valor = novo_valor
 
     def buscar_valores_repetidos(self):
+        #DETECTAR O SE A LISTA ESTA VAZIA
         if self.tamanho == 0:
             raise Exception('Lista Vazia!!!')
-        perc = self.inicio
-        aux = self.inicio
+        listastr = str(self.inicio)
+        string1 = ''
+        string2 = ''
         cont = 0
-        cont2 = 0
-        valunico = Lista()
+        perc = self.inicio
+        # BUSCAR VALORES REPETIDOS
+        while perc is not None:
+            listastr = str(perc.valor)
+            if listastr not in string1:
+                string1 += listastr
+            elif listastr in string1:
+                string2 += listastr
+                cont+=1
+            perc = perc.proximo
 
-        while aux:
-            while perc:
-                if aux.valor == perc.valor:
-                    cont += 1
-                    if cont > 1:
-                        cont2 += 1
-                        print(aux.valor,'repetio',cont2, 'x')
-                perc = perc.proximo
-            aux = aux.proximo
+        # EXIBIR VALORES
+        repit = ''
+        for i in string2:
+            repit += f'>{i}'
+        print(f'{cont} Valores se repetem são eles: {repit}')
+
 
 
 lista = Lista()
-
+lista.adicionaritens(1)
 lista.adicionaritens(3)
 lista.adicionaritens(3)
-lista.adicionaritens(2)
-lista.adicionaritens(3)
-lista.adicionaritens(2)
-lista.adicionaritens(3)
-lista.adicionaritens(2)
+lista.adicionaritens(5)
+lista.adicionaritens(5)
+lista.adicionaritens(6)
+lista.adicionaritens(6)
 lista.adicionaritens(8)
 print(lista)
 
