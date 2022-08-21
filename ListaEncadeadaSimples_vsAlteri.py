@@ -100,13 +100,16 @@ class Lista:
             perc = perc.proximo
         return perc.valor
 
-    def get_valorv2(self, index):
+    def get_index(self, valor):
         if self.tamanho == 0:
             raise IndexError('NÃO EXISTE ELEMENTOS NA LISTA')
+        cont = 0
         perc = self.inicio
-        for i in range(index):
-            perc = perc.proximo
-        return perc.valor
+        while perc.valor is not valor:
+            cont+=1
+            perc=perc.proximo
+        return cont
+
 
     def editar_item(self, index, novo_valor):
         if self.tamanho == 0:
@@ -120,7 +123,6 @@ class Lista:
         # DETECTAR O SE A LISTA ESTA VAZIA
         if self.tamanho == 0:
             raise Exception('Lista Vazia!!!')
-        listastr = str(self.inicio)
         string1 = ''
         string2 = ''
         cont = 0
@@ -130,35 +132,46 @@ class Lista:
             listastr = str(perc.valor)
             if listastr not in string1:
                 string1 += listastr
+                cont +=1
             elif listastr in string1:
                 string2 += listastr
-                cont += 1
+
             perc = perc.proximo
+
 
         # EXIBIR VALORES
         repit = ''
         for i in string2:
             repit += f'>{i}'
-        return f'{cont} Valores se repetem são eles: {repit}'
 
-    def ordenar(self, crecente=True):
+        return f' {cont} Valores se repetem são eles: {repit}'
+
+    def ordenar(self, crescente=True):
         # RECOMENDAÇÕES DO PROFESSOR:
         # BublleSort ou SelectionSort
+        listaordenada = Lista()
+        crescente = False
+        perc = self.inicio
+        for i in range(self.tamanho-1):
+            valordadireita = perc.valor
+            valordaesquerda = perc.proximo.valor
+            if valordadireita > valordaesquerda:
 
+                crescente = True
         # Método Usado: BublleSort
-        pass
 
 
 lista = Lista()
-lista.adicionaritens(5)
-lista.adicionaritens(4)
-lista.adicionaritens(8)
-lista.adicionaritens(7)
-lista.adicionaritens(5)
+lista.adicionaritens(1)
 lista.adicionaritens(2)
-lista.adicionaritens(9)
+lista.adicionaritens(30)
 lista.adicionaritens(8)
+lista.adicionaritens(4)
+lista.adicionaritens(5)
+lista.adicionaritens(6)
+lista.adicionaritens(7)
 print(lista)
+# print(lista.buscar_valores_repetidos())
+print(lista.get_index(7))
+print(lista.get_index(30))
 
-ValsRepetidos = lista.buscar_valores_repetidos()
-print(ValsRepetidos)
