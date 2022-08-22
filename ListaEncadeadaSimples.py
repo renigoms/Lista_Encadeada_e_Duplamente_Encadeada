@@ -10,7 +10,7 @@ class _No:
         return f'{self.valor}{proximo}'
 
 
-class Lista:
+class ListEncadSimples:
     def __init__(self, tipo=None):
 
         self.inicio = None
@@ -64,9 +64,9 @@ class Lista:
 
         if index >= self.tamanho or self.tamanho + index < 0:
             raise Exception('Não há um item na lista com esse index')
-        if index < 0:
+        elif index < 0:
             index += self.tamanho
-        if index == 0:
+        elif index == 0:
             self.inicio = self.inicio.proximo
         else:
             perc = self.inicio
@@ -146,6 +146,7 @@ class Lista:
         return f' {cont} Valores se repetem são eles: {repit}'
 
     def ordenar(self, crescente=True):
+        # Método Usado: BublleSort
         if crescente:
             perc = self.inicio
             for o in range(self.tamanho - 1):
@@ -170,10 +171,10 @@ class Lista:
                 perc = self.inicio
 
 
-        # Método Usado: BublleSort
 
 
-lista = Lista()
+
+lista = ListEncadSimples()
 lista.adicionaritens(5)
 lista.adicionaritens(7)
 lista.adicionaritens(10)
@@ -183,7 +184,7 @@ lista.adicionaritens(75)
 lista.adicionaritens(7)
 lista.adicionaritens(9)
 print(lista)
-# print(lista.buscar_valores_repetidos())
+print(lista.buscar_valores_repetidos())
 lista.ordenar(
 
 )
