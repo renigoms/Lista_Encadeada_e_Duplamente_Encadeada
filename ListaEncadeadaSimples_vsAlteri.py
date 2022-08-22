@@ -106,10 +106,9 @@ class Lista:
         cont = 0
         perc = self.inicio
         while perc.valor is not valor:
-            cont+=1
-            perc=perc.proximo
+            cont += 1
+            perc = perc.proximo
         return cont
-
 
     def editar_item(self, index, novo_valor):
         if self.tamanho == 0:
@@ -128,16 +127,16 @@ class Lista:
         cont = 0
         perc = self.inicio
         # BUSCAR VALORES REPETIDOS
+
         while perc is not None:
             listastr = str(perc.valor)
             if listastr not in string1:
                 string1 += listastr
-                cont +=1
+                cont += 1
             elif listastr in string1:
                 string2 += listastr
 
             perc = perc.proximo
-
 
         # EXIBIR VALORES
         repit = ''
@@ -147,31 +146,45 @@ class Lista:
         return f' {cont} Valores se repetem são eles: {repit}'
 
     def ordenar(self, crescente=True):
-        # RECOMENDAÇÕES DO PROFESSOR:
-        # BublleSort ou SelectionSort
-        listaordenada = Lista()
-        crescente = False
-        perc = self.inicio
-        for i in range(self.tamanho-1):
-            valordadireita = perc.valor
-            valordaesquerda = perc.proximo.valor
-            if valordadireita > valordaesquerda:
+        if crescente:
+            perc = self.inicio
+            for o in range(self.tamanho - 1):
+                for i in range(self.tamanho - 1):
+                    valor = perc.valor
+                    valdafrente = perc.proximo.valor
+                    if valor > valdafrente:
+                        perc.valor = perc.proximo.valor
+                        perc.proximo.valor = valor
+                    perc = perc.proximo
+                perc = self.inicio
+        else:
+            perc = self.inicio
+            for o in range(self.tamanho - 1):
+                for i in range(self.tamanho - 1):
+                    valor = perc.valor
+                    valdafrente = perc.proximo.valor
+                    if valor < valdafrente:
+                        perc.valor = perc.proximo.valor
+                        perc.proximo.valor = valor
+                    perc = perc.proximo
+                perc = self.inicio
 
-                crescente = True
+
         # Método Usado: BublleSort
 
 
 lista = Lista()
-lista.adicionaritens(1)
-lista.adicionaritens(2)
-lista.adicionaritens(30)
-lista.adicionaritens(8)
-lista.adicionaritens(4)
 lista.adicionaritens(5)
-lista.adicionaritens(6)
 lista.adicionaritens(7)
+lista.adicionaritens(10)
+lista.adicionaritens(55)
+lista.adicionaritens(1)
+lista.adicionaritens(75)
+lista.adicionaritens(7)
+lista.adicionaritens(9)
 print(lista)
 # print(lista.buscar_valores_repetidos())
-print(lista.get_index(7))
-print(lista.get_index(30))
+lista.ordenar(
 
+)
+print(lista)
