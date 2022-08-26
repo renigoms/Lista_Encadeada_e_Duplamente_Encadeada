@@ -93,12 +93,15 @@ class ListEncadSimples:
     def get_valor(self, index):
         if self.tamanho == 0:
             raise IndexError('NÃO EXISTE ELEMENTOS NA LISTA')
-        if index == self.tamanho:
+        if index == 0:
+            return self.inicio.valor
+        elif index == self.tamanho:
             return self.final.valor
-        perc = self.inicio
-        for i in range(index):
-            perc = perc.proximo
-        return perc.valor
+        else:
+            perc = self.inicio
+            for i in range(index):
+                perc = perc.proximo
+            return perc.valor
 
     def get_index(self, valor):
         if self.tamanho == 0:
@@ -122,30 +125,24 @@ class ListEncadSimples:
         # DETECTAR O SE A LISTA ESTA VAZIA
         if self.tamanho == 0:
             raise Exception('Lista Vazia!!!')
+
         string1 = ''
         string2 = ''
-        cont = 0
         perc = self.inicio
         # BUSCAR VALORES REPETIDOS
 
         while perc is not None:
-            listastr = str(perc.valor)
+            listastr = str(perc.valor) + '>'
             if listastr not in string1:
                 string1 += listastr
-                cont += 1
             elif listastr in string1:
                 string2 += listastr
-
             perc = perc.proximo
-
-        # EXIBIR VALORES
-        repit = ''
-        for i in string2:
-            repit += f'>{i}'
-
-        return f' {cont} Valores se repetem são eles: {repit}'
+        return string2
 
     def ordenar(self, crescente=True):
+        if self.tamanho == 0:
+            raise Exception('Lista Vazia!!!')
         # Método Usado: BublleSort
         if crescente:
             perc = self.inicio
@@ -175,17 +172,16 @@ class ListEncadSimples:
 
 
 lista = ListEncadSimples()
-lista.adicionaritens(5)
-lista.adicionaritens(7)
-lista.adicionaritens(10)
-lista.adicionaritens(55)
-lista.adicionaritens(1)
-lista.adicionaritens(75)
-lista.adicionaritens(7)
-lista.adicionaritens(9)
+lista.adicionaritens(25)
+lista.adicionaritens(25)
+lista.adicionaritens(996)
+lista.adicionaritens(544)
+lista.adicionaritens(544)
+lista.adicionaritens(445)
+lista.adicionaritens(544)
+lista.adicionaritens(20)
 print(lista)
-print(lista.buscar_valores_repetidos())
-lista.ordenar(
+print(f'Repetições de valores: {lista.buscar_valores_repetidos()}')
+lista.ordenar(False)
+print(f'lista ordenada: {lista}')
 
-)
-print(lista)
