@@ -72,6 +72,42 @@ class ListEncaDupla:
     #   BUSCAR INDEX USANDO O VALOR
     # ******************************************************
 
+    def _percorrer_os2lados_count(self, valor, perc_inicial, perc_final, metade, count_inicial, count_final,
+                                  impar=True):
+        if impar:
+            while perc_inicial.valor is not perc_final.valor:
+                if perc_inicial.valor == valor:
+                    return count_inicial
+                elif perc_final.valor == valor:
+                    return count_final
+                perc_inicial = perc_inicial.proximo
+                perc_final = perc_final.anterior
+                count_inicial += 1
+                count_final -= 1
+            ValorMeio = self.buscar_valor_pelo_index(metade)
+            if ValorMeio == valor:
+                return metade
+            else:
+                raise Exception('VALOR NÃO ESTÁ NA LISTA')
+        else:
+            while count_inicial is not metade and count_final != metade + 1:
+                if perc_inicial.valor == valor:
+                    return count_inicial
+                elif perc_final.valor == valor:
+                    return count_final
+                perc_inicial = perc_inicial.proximo
+                perc_final = perc_final.anterior
+                count_inicial += 1
+                count_final -= 1
+            ValorMeio_inicial = self.buscar_valor_pelo_index(metade)
+            ValorMeio_final = self.buscar_valor_pelo_index(metade + 1)
+            if ValorMeio_inicial == valor:
+                return metade
+            elif ValorMeio_final == valor:
+                return metade + 1
+            else:
+                raise Exception('VALOR NÃO ESTÁ NA LISTA')
+
     def _percorrer_por_valor(self, valor):
         if self.tamanho == 0:
             raise IndexError('NÃO EXISTE ELEMENTOS NA LISTA')
@@ -86,44 +122,14 @@ class ListEncaDupla:
                 perc_inicial = self.inicio
                 perc_final = self.final
                 metade = int((self.tamanho - 1) / 2)
-                while count is not metade and count2 != metade + 1:
-                    if perc_inicial.valor == valor:
-                        return count
-                    elif perc_final.valor == valor:
-                        return count2
-                    perc_inicial = perc_inicial.proximo
-                    perc_final = perc_final.anterior
-                    count += 1
-                    count2 -= 1
-                metade = int((self.tamanho - 1) / 2)
-                ValorMeio_inicial = self.buscar_valor_pelo_index(metade)
-                ValorMeio_final = self.buscar_valor_pelo_index(metade+1)
-                if ValorMeio_inicial == valor:
-                    return metade
-                elif ValorMeio_final == valor:
-                    return metade+1
-                else:
-                    raise Exception('VALOR NÃO ESTÁ NA LISTA')
-                pass
-
+                TamListaImpar = False
             else:
                 perc_inicial = self.inicio
                 perc_final = self.final
-                while perc_inicial.valor is not perc_final.valor:
-                    if perc_inicial.valor == valor:
-                        return count
-                    elif perc_final.valor == valor:
-                        return count2
-                    perc_inicial = perc_inicial.proximo
-                    perc_final = perc_final.anterior
-                    count += 1
-                    count2 -= 1
                 metade = int((self.tamanho - 1) / 2)
-                ValorMeio = self.buscar_valor_pelo_index(metade)
-                if ValorMeio == valor:
-                    return metade
-                else:
-                    raise Exception('VALOR NÃO ESTÁ NA LISTA')
+                TamListaImpar = True
+            return self._percorrer_os2lados_count(valor, perc_inicial, perc_final, metade, count, count2,
+                                                  TamListaImpar)
 
     def buscar_index_pelo_valor(self, valor):
         count = self._percorrer_por_valor(valor)
@@ -146,10 +152,17 @@ class ListEncaDupla:
     def inserir(self, index, valor):
         pass
 
-    def editar_item(self, index, novo_valor):
-        pass
+    # ***********************************************
+    #           EDITAR ITENS
+    # ***********************************************
 
-    def remover_item(self):
+    def editar_item(self, index, novo_valor):
+        perc = self._percorrer_por_index(index)
+        perc.valor = novo_valor
+
+    def remover_item(self, valor):
+        if self.tamanho == 0:
+            raise Exception('LISTA VAZIA')
         pass
 
     def remover_index(self, index):
@@ -173,7 +186,8 @@ lista_dupla.adicionar(90)
 lista_dupla.adicionar(60)
 lista_dupla.adicionar(220)
 lista_dupla.adicionar(70)
-
+lista_dupla.adicionar(75)
+lista_dupla.editar_item(1,55)
 
 print(lista_dupla)
-print(lista_dupla.buscar_index_pelo_valor(90))
+print(lista_dupla.buscar_index_pelo_valor(60))
