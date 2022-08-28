@@ -150,7 +150,43 @@ class ListEncaDupla:
         self.tamanho += 1
 
     def inserir(self, index, valor):
-        pass
+        if self.tipo and type(valor) != self.tipo:
+            raise TypeError(f'Tipo inválido, a função só aceita tipo: {self.tipo}')
+        if index >= self.tamanho:
+            self.adicionar(valor)
+            return
+        no = _No(valor)
+        if index == 0:
+            no.proximo = self.inicio
+            self.inicio = no
+            self.tamanho += 1
+
+        elif index > self.tamanho - 1:
+            self.final.proximo = no
+            no.anterior = self.final
+            no.proximo = None
+            self.final = no
+            self.tamanho += 1
+
+        else:
+            metade = (self.tamanho - 1) / 2
+            if index <= metade:
+                perc_inicial = self.inicio
+                perc_inserir1 = self._percorrer(perc_inicial, index - 1)
+                no.proximo = perc_inserir1.proximo
+                perc_inserir1.proximo.anterior = no
+                perc_inserir1.proximo = no
+                no.anterior = perc_inserir1
+                self.tamanho += 1
+            else:
+                perc_final = self.final
+                indexDetrasPfrente = (self.tamanho - 1) - index - 1
+                perc_inserir2 = self._percorrer(perc_final, indexDetrasPfrente, False)
+                no.anterior = perc_inserir2.anterior
+                perc_inserir2.anterior.proximo = no
+                perc_inserir2.anterior = no
+                no.proximo = perc_inserir2
+                self.tamanho += 1
 
     # ***********************************************
     #           EDITAR ITENS
@@ -160,13 +196,59 @@ class ListEncaDupla:
         perc = self._percorrer_por_index(index)
         perc.valor = novo_valor
 
+    # ***********************************************
+    #           REMOVER ITENS
+    # ***********************************************
     def remover_item(self, valor):
         if self.tamanho == 0:
-            raise Exception('LISTA VAZIA')
-        pass
+            raise Exception('Não há itens na lista')
+        perc_inicio = self.inicio
+        perc_final = self.final
+        if perc_inicio.valor == valor:
+            self.inicio = self.inicio.proximo
+            self.tamanho -= 1
+        elif perc_final.valor == valor:
+            self.final = self.final.anterior
+            self.final.proximo = None
+            self.tamanho -= 1
 
+        else:
+            indexvalor = self.buscar_index_pelo_valor(valor)
+            self.remover_index(indexvalor)
+
+    # ***********************************************
+    #           REMOVER ITENS 1-->2-->3-->4
+    # ***********************************************
     def remover_index(self, index):
-        pass
+        # print((self.tamanho-1)-index+1)
+
+        if index >= self.tamanho or index < 0:
+            raise IndexError('Não existe essa posição')
+        elif index == 0:
+            self.inicio = self.inicio.proximo
+        elif index == self.tamanho - 1:
+            self.final = self.final.anterior
+            self.final.proximo = None
+            self.tamanho -= 1
+        else:
+            metade = int(self.tamanho - 1) / 2
+            if index <= metade:
+                perc_inicio = self.inicio
+                perc = self._percorrer(perc_inicio, index - 1)
+                aux = perc.proximo
+                perc.proximo = aux.proximo
+                aux.proximo.anterior = perc
+                aux = None
+                self.tamanho -= 1
+            else:
+                perc_final = self.final
+                indexDtrasPfrente = (self.tamanho - 1) - index
+                perc2 = self._percorrer(perc_final, indexDtrasPfrente - 1, False)
+                aux = perc2.anterior
+                perc2.anterior = aux.anterior
+                aux.anterior.proximo = perc2
+                aux = None
+                self.tamanho -= 1
 
     def buscar_valores_repetidos(self):
         pass
@@ -179,15 +261,19 @@ class ListEncaDupla:
 # ÁREA DE TESTES
 # ******************************************************
 
-lista_dupla = ListEncaDupla()
-lista_dupla.adicionar(10)
-lista_dupla.adicionar(40)
-lista_dupla.adicionar(90)
-lista_dupla.adicionar(60)
-lista_dupla.adicionar(220)
-lista_dupla.adicionar(70)
-lista_dupla.adicionar(75)
-lista_dupla.editar_item(1,55)
+lista = ListEncaDupla()
+lista.adicionar(1)
+lista.adicionar(2)
+lista.adicionar(3)
+lista.adicionar(4)
+lista.adicionar(5)
+lista.inserir(0, 20)
+lista.inserir(1, 22)
+lista.inserir(2, 23)
+lista.inserir(3, 24)
+lista.inserir(4, 25)
+lista.remover_item(4)
+lista.remover_index(3)
 
-print(lista_dupla)
-print(lista_dupla.buscar_index_pelo_valor(60))
+print(len(lista))
+print(lista)

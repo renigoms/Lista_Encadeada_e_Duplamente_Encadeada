@@ -61,13 +61,13 @@ class ListEncadSimples:
         self.tamanho += 1
 
     def remover_index(self, index):
-
         if index >= self.tamanho or self.tamanho + index < 0:
             raise Exception('Não há um item na lista com esse index')
         elif index < 0:
             index += self.tamanho
         elif index == 0:
             self.inicio = self.inicio.proximo
+            self.tamanho -= 1
         else:
             perc = self.inicio
             for i in range(index - 1):
@@ -171,17 +171,18 @@ class ListEncadSimples:
 
 
 
-lista = ListEncadSimples()
-lista.adicionaritens(25)
-lista.adicionaritens(25)
-lista.adicionaritens(996)
-lista.adicionaritens(544)
-lista.adicionaritens(544)
-lista.adicionaritens(445)
-lista.adicionaritens(544)
-lista.adicionaritens(20)
-print(lista)
-print(f'Repetições de valores: {lista.buscar_valores_repetidos()}')
-lista.ordenar(False)
-print(f'lista ordenada: {lista}')
+# lista = ListEncadSimples()
+# lista.adicionaritens(25)
+# lista.adicionaritens(25)
+# lista.adicionaritens(996)
+# lista.adicionaritens(544)
+# lista.adicionaritens(544)
+# lista.adicionaritens(445)
+# lista.adicionaritens(544)
+# lista.adicionaritens(20)
+# lista.inseriritem(7,1)
+# print(lista)
+# print(f'Repetições de valores: {lista.buscar_valores_repetidos()}')
+# lista.ordenar(False)
+# print(f'lista ordenada: {lista}')
 
