@@ -132,11 +132,11 @@ class ListEncadSimples:
         # BUSCAR VALORES REPETIDOS
 
         while perc is not None:
-            listastr = str(perc.valor) + '>'
-            if listastr not in string1:
-                string1 += listastr
-            elif listastr in string1:
-                string2 += listastr
+            if ':' + str(perc.valor) + ':' not in string1:
+                string1 += ':' + str(perc.valor) + ':'
+            elif str(perc.valor) in string1:
+                # if str(perc.valor) not in string2:
+                string2 += ':' + str(perc.valor) + ':'
             perc = perc.proximo
         return string2
 
@@ -168,21 +168,17 @@ class ListEncadSimples:
                 perc = self.inicio
 
 
-
-
-
-# lista = ListEncadSimples()
-# lista.adicionaritens(25)
-# lista.adicionaritens(25)
-# lista.adicionaritens(996)
-# lista.adicionaritens(544)
-# lista.adicionaritens(544)
-# lista.adicionaritens(445)
-# lista.adicionaritens(544)
-# lista.adicionaritens(20)
+lista = ListEncadSimples()
+lista.adicionaritens(11)
+lista.adicionaritens(2)
+lista.adicionaritens(2)
+lista.adicionaritens(56)
+lista.adicionaritens(30)
+lista.adicionaritens(6)
+lista.adicionaritens(56)
+lista.adicionaritens(1)
 # lista.inseriritem(7,1)
 # print(lista)
-# print(f'Repetições de valores: {lista.buscar_valores_repetidos()}')
+print(f'VALORES REPETIDOS: |{lista.buscar_valores_repetidos()}|')
 # lista.ordenar(False)
 # print(f'lista ordenada: {lista}')
-

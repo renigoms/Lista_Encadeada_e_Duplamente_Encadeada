@@ -169,7 +169,7 @@ class ListEncaDupla:
             self.tamanho += 1
 
         else:
-            metade = (self.tamanho - 1) / 2
+            metade = (self.tamanho-1) / 2
             if index <= metade:
                 perc_inicial = self.inicio
                 perc_inserir1 = self._percorrer(perc_inicial, index - 1)
@@ -251,10 +251,39 @@ class ListEncaDupla:
                 self.tamanho -= 1
 
     def buscar_valores_repetidos(self):
-        pass
+        # DETECTAR O SE A LISTA ESTA VAZIA
+        if self.tamanho == 0:
+            raise Exception('Lista Vazia!!!')
+
+        string1 = ''
+        string2 = ''
+        perc = self.inicio
+        # BUSCAR VALORES REPETIDOS
+
+        while perc is not None:
+            if ':' + str(perc.valor) + ':' not in string1:
+                string1 += ':' + str(perc.valor) + ':'
+            elif str(perc.valor) in string1:
+                # if str(perc.valor) not in string2:
+                string2 += ':' + str(perc.valor) + ':'
+            perc = perc.proximo
+        return string2
 
     def ordenar(self, crescente=True):
+        perc = self.inicio
+        tamanho = self.tamanho
+        for i in range(1, tamanho):
+            chavedafrente = perc.proximo.valor
+            detras = perc.valor
+            j = i -1
+            while j >= 0 and detras > chavedafrente:
+                detras.proximo = detras
+                j-=1
+            detras.proximo = chavedafrente
+
+            perc = perc.proximo
         pass
+
 
 
 # ******************************************************
@@ -264,16 +293,10 @@ class ListEncaDupla:
 lista = ListEncaDupla()
 lista.adicionar(1)
 lista.adicionar(2)
-lista.adicionar(3)
 lista.adicionar(4)
-lista.adicionar(5)
-lista.inserir(0, 20)
-lista.inserir(1, 22)
-lista.inserir(2, 23)
-lista.inserir(3, 24)
-lista.inserir(4, 25)
-lista.remover_item(4)
-lista.remover_index(3)
+lista.adicionar(4)
+
 
 print(len(lista))
+print(lista.buscar_valores_repetidos())
 print(lista)
