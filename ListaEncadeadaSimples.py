@@ -134,11 +134,13 @@ class ListEncadSimples:
         while perc is not None:
             if ':' + str(perc.valor) + ':' not in string1:
                 string1 += ':' + str(perc.valor) + ':'
-            elif str(perc.valor) in string1:
-                # if str(perc.valor) not in string2:
+            elif ':' + str(perc.valor) + ':' in string1:
                 string2 += ':' + str(perc.valor) + ':'
             perc = perc.proximo
-        return string2
+        if string2 == '':
+            print('Não há valores repetidos')
+        else:
+            return string2
 
     def ordenar(self, crescente=True):
         if self.tamanho == 0:
@@ -168,17 +170,21 @@ class ListEncadSimples:
                 perc = self.inicio
 
 
-lista = ListEncadSimples()
-lista.adicionaritens(11)
-lista.adicionaritens(2)
-lista.adicionaritens(2)
-lista.adicionaritens(56)
-lista.adicionaritens(30)
-lista.adicionaritens(6)
-lista.adicionaritens(56)
-lista.adicionaritens(1)
-# lista.inseriritem(7,1)
-# print(lista)
-print(f'VALORES REPETIDOS: |{lista.buscar_valores_repetidos()}|')
-# lista.ordenar(False)
-# print(f'lista ordenada: {lista}')
+ListaEncadeadaSimple = ListEncadSimples()
+ListaEncadeadaSimple.adicionaritens(1)
+ListaEncadeadaSimple.adicionaritens(2)
+ListaEncadeadaSimple.adicionaritens(3)
+ListaEncadeadaSimple.adicionaritens(4)
+ListaEncadeadaSimple.adicionaritens(5)
+ListaEncadeadaSimple.inseriritem(2,2)
+ListaEncadeadaSimple.editar_item(2, 9)
+ListaEncadeadaSimple.remover_item(4)
+ListaEncadeadaSimple.remover_index(1)
+ListaEncadeadaSimple.inseriritem(1,9)
+ListaEncadeadaSimple.inseriritem(2,3)
+print(ListaEncadeadaSimple.buscar_valores_repetidos())
+ListaEncadeadaSimple.ordenar()
+ListaEncadeadaSimple.ordenar(False)
+print(ListaEncadeadaSimple.get_valor(0))
+print(ListaEncadeadaSimple.get_index(3))
+print(ListaEncadeadaSimple)

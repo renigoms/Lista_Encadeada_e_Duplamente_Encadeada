@@ -169,7 +169,7 @@ class ListEncaDupla:
             self.tamanho += 1
 
         else:
-            metade = (self.tamanho-1) / 2
+            metade = (self.tamanho - 1) / 2
             if index <= metade:
                 perc_inicial = self.inicio
                 perc_inserir1 = self._percorrer(perc_inicial, index - 1)
@@ -251,39 +251,82 @@ class ListEncaDupla:
                 self.tamanho -= 1
 
     def buscar_valores_repetidos(self):
-        # DETECTAR O SE A LISTA ESTA VAZIA
         if self.tamanho == 0:
             raise Exception('Lista Vazia!!!')
 
         string1 = ''
         string2 = ''
         perc = self.inicio
-        # BUSCAR VALORES REPETIDOS
-
-        while perc is not None:
-            if ':' + str(perc.valor) + ':' not in string1:
-                string1 += ':' + str(perc.valor) + ':'
-            elif str(perc.valor) in string1:
-                # if str(perc.valor) not in string2:
-                string2 += ':' + str(perc.valor) + ':'
-            perc = perc.proximo
-        return string2
+        perc_fim = self.final
+        count = 0
+        metade = self.tamanho // 2
+        valormeio = self.buscar_valor_pelo_index(metade)
+        if self.tamanho % 2 == 0:
+            while metade > count:
+                if ':' + str(perc.valor) + ':' not in string1:
+                    string1 += ':' + str(perc.valor) + ':'
+                elif ':' + str(perc.valor) + ':' in string1:
+                    string2 += ':' + str(perc.valor) + ':'
+                if ':' + str(perc_fim.valor) + ':' not in string1:
+                    string1 += ':' + str(perc_fim.valor) + ':'
+                elif ':' + str(perc_fim.valor) + ':' in string1:
+                    string2 += ':' + str(perc_fim.valor) + ':'
+                perc = perc.proximo
+                perc_fim = perc_fim.anterior
+                count += 1
+        else:
+            while metade > count:
+                if ':' + str(perc.valor) + ':' not in string1:
+                    string1 += ':' + str(perc.valor) + ':'
+                elif ':' + str(perc.valor) + ':' in string1:
+                    string2 += ':' + str(perc.valor) + ':'
+                if ':' + str(perc_fim.valor) + ':' not in string1:
+                    string1 += ':' + str(perc_fim.valor) + ':'
+                elif ':' + str(perc_fim.valor) + ':' in string1:
+                    string2 += ':' + str(perc_fim.valor) + ':'
+                perc = perc.proximo
+                perc_fim = perc_fim.anterior
+                count += 1
+            novo_perc = self.inicio
+            for i in range(self.tamanho - 1):
+                if f':{str(valormeio)}:' == f':{str(novo_perc.valor)}:':
+                    if f':{str(valormeio)}:' not in string2:
+                        string2 += f':{str(valormeio)}:'
+                novo_perc = novo_perc.proximo
+            if string2 == '':
+                return 'Não há valores repetidos'
+            else:
+                return string2
 
     def ordenar(self, crescente=True):
-        perc = self.inicio
-        tamanho = self.tamanho
-        for i in range(1, tamanho):
-            chavedafrente = perc.proximo.valor
-            detras = perc.valor
-            j = i -1
-            while j >= 0 and detras > chavedafrente:
-                detras.proximo = detras
-                j-=1
-            detras.proximo = chavedafrente
+        if self.tamanho == 0:
+            raise Exception('Lista Vazia!!!')
+        if crescente:
 
-            perc = perc.proximo
-        pass
-
+            # Insertion Sort
+            count = 1
+            for i in range(self.tamanho - 1):
+                perc = self._percorrer_por_index(i)
+                aux = self._percorrer_por_index(count)
+                while aux:
+                    if perc.valor > aux.valor:
+                        val_temp = perc.valor
+                        perc.valor = aux.valor
+                        aux.valor = val_temp
+                    aux = aux.proximo
+                count += 1
+        else:
+            count = 1
+            for i in range(self.tamanho - 1):
+                perc = self._percorrer_por_index(i)
+                aux = self._percorrer_por_index(count)
+                while aux:
+                    if perc.valor < aux.valor:
+                        val_temp = perc.valor
+                        perc.valor = aux.valor
+                        aux.valor = val_temp
+                    aux = aux.proximo
+                count += 1
 
 
 # ******************************************************
@@ -291,12 +334,29 @@ class ListEncaDupla:
 # ******************************************************
 
 lista = ListEncaDupla()
-lista.adicionar(1)
-lista.adicionar(2)
+lista.adicionar(5)
+lista.adicionar(5)
+lista.adicionar(8)
+lista.adicionar(5)
 lista.adicionar(4)
 lista.adicionar(4)
-
-
-print(len(lista))
+lista.adicionar(5)
+lista.inserir(1, 3)
+lista.inserir(7, 3)
+lista.ordenar()
+lista.ordenar(False)
+lista.remover_index(7)
+lista.remover_item(5)
+lista.remover_item(5)
+lista.remover_item(5)
+lista.remover_item(4)
+lista.remover_item(4)
+lista.inserir(2, 8)
+lista.inserir(0, 3)
 print(lista.buscar_valores_repetidos())
+print(lista.buscar_index_pelo_valor(5))
+print(lista.buscar_valor_pelo_index(1))
+lista.editar_item(4, 369)
+lista.ordenar()
+lista.ordenar(False)
 print(lista)
